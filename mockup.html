@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockup Dang Ky Khoa Hoc - Multi Step</title>
+  <style>
+    :root {
+      --bg: #f3f7fc;
+      --card: #ffffff;
+      --border: #dbe5f0;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --soft: #eff6ff;
+      --success-bg: #ecfdf5;
+      --success: #047857;
+      --shadow: 0 18px 40px rgba(37, 99, 235, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #edf4ff 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e40af;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .step-chip {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-chip.active {
+      background: var(--soft);
+      border-color: #bfdbfe;
+    }
+
+    .step-no {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #e5edff;
+      color: #1d4ed8;
+      font-weight: bold;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .step-chip.active .step-no {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .step-label {
+      display: grid;
+      gap: 2px;
+    }
+
+    .step-label strong {
+      font-size: 14px;
+    }
+
+    .step-label span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .wizard-card {
+      overflow: hidden;
+    }
+
+    .step-panel {
+      display: none;
+      padding: 28px;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    .step-panel h2 {
+      margin: 0 0 6px;
+      font-size: 26px;
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .course-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .course-option {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fbfdff;
+    }
+
+    .course-option.selected {
+      border-color: #93c5fd;
+      background: var(--soft);
+    }
+
+    .course-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .course-top h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .helper {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #1e3a8a;
+      font-size: 13px;
+    }
+
+    .price-tag {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--primary-dark);
+      white-space: nowrap;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cdd9e8;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .confirm-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .confirm-box {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: #fbfdff;
+    }
+
+    .confirm-box h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .confirm-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .confirm-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .confirm-item span:first-child {
+      color: var(--muted);
+    }
+
+    .payment-options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .payment-card {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .payment-card input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+    }
+
+    .payment-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .bank-box {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 14px;
+      background: var(--success-bg);
+      color: var(--success);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid #edf2f7;
+    }
+
+    .actions-right {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #eef2f7;
+      color: #334155;
+    }
+
+    .sidebar {
+      padding: 24px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .sidebar h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .summary-box {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid #dbeafe;
+      background: var(--soft);
+    }
+
+    .summary-box strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 30px;
+      color: var(--primary-dark);
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .summary-item span:first-child {
+      color: var(--muted);
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .security {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 960px) {
+      .layout,
+      .form-grid,
+      .stepper {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions-right {
+        width: 100%;
+      }
+
+      .actions-right .btn,
+      .actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <span class="badge">Single Page Registration Journey</span>
+      <h1>Dang ky khoa hoc theo tung buoc</h1>
+      <p>
+        Mockup nay mo phong hanh trinh dang ky tren mot trang duy nhat, chia thanh 4 buoc:
+        chon khoa hoc, nhap thong tin, xac nhan dang ky va thanh toan.
+      </p>
+    </div>
+
+    <div class="stepper">
+      <div class="step-chip active" data-step-chip="1">
+        <div class="step-no">1</div>
+        <div class="step-label">
+          <strong>Chon khoa hoc</strong>
+          <span>Course offering</span>
+        </div>
+      </div>
+      <div class="step-chip" data-step-chip="2">
+        <div class="step-no">2</div>
+        <div class="step-label">
+          <strong>Dang ky thong tin</strong>
+          <span>Student profile</span>
+        </div>
+      </div>
+      <div class="step-chip" data-step-chip="3">
+        <div class="step-no">3</div>
+        <div class="step-label">
+          <strong>Confirm dang ky</strong>
+          <span>Review enrollment</span>
+        </div>
+      </div>
+      <div class="step-chip" data-step-chip="4">
+        <div class="step-no">4</div>
+        <div class="step-label">
+          <strong>Thanh toan</strong>
+          <span>Invoice and payment</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="card wizard-card">
+        <section class="step-panel active" data-step="1">
+          <h2>Buoc 1: Chon khoa hoc</h2>
+          <p class="subtitle">
+            Hoc vien chon lop hoc phu hop truoc khi tao enrollment. Moi lua chon ben duoi co the map vao `Course__c` va `Course_Offering__c`.
+          </p>
+
+          <div class="course-grid">
+            <div class="course-option selected">
+              <div class="course-top">
+                <div>
+                  <h3>Salesforce Administrator Foundation</h3>
+                  <div class="helper">Danh cho nguoi moi bat dau hoc Salesforce, tap trung object model, security va Flow.</div>
+                </div>
+                <div class="price-tag">12.000.000 VND</div>
+              </div>
+              <div class="pill-list">
+                <span class="pill">Class: ADM-2026-04</span>
+                <span class="pill">Start: 10/04/2026</span>
+                <span class="pill">Weekend 19:00</span>
+                <span class="pill">Seats left: 8</span>
+              </div>
+            </div>
+
+            <div class="course-option">
+              <div class="course-top">
+                <div>
+                  <h3>Salesforce Business Analyst Essentials</h3>
+                  <div class="helper">Phu hop cho hoc vien muon hoc discovery, requirement va process mapping tren Salesforce.</div>
+                </div>
+                <div class="price-tag">10.500.000 VND</div>
+              </div>
+              <div class="pill-list">
+                <span class="pill">Class: BA-2026-05</span>
+                <span class="pill">Start: 22/04/2026</span>
+                <span class="pill">Tue-Thu 20:00</span>
+                <span class="pill">Seats left: 12</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" type="button" disabled>Buoc truoc</button>
+            <div class="actions-right">
+              <button class="btn btn-primary" type="button" onclick="goToStep(2)">Tiep tuc</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-panel" data-step="2">
+          <h2>Buoc 2: Dang ky thong tin</h2>
+          <p class="subtitle">
+            Buoc nay thu thap du lieu de tao ho so hoc vien `Contact` va ban ghi `Enrollment__c`.
+          </p>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="fullName">Ho va ten</label>
+              <input id="fullName" type="text" value="Nguyen Minh Tam" placeholder="Nhap ho va ten">
+            </div>
+            <div class="field">
+              <label for="dob">Ngay sinh</label>
+              <input id="dob" type="date" value="1998-09-20">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" value="tam.nguyen@email.com" placeholder="example@email.com">
+            </div>
+            <div class="field">
+              <label for="phone">So dien thoai</label>
+              <input id="phone" type="tel" value="0901234567" placeholder="0901234567">
+            </div>
+            <div class="field">
+              <label for="gender">Gioi tinh</label>
+              <select id="gender">
+                <option>Nam</option>
+                <option selected>Nu</option>
+                <option>Khac</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="source">Nguon dang ky</label>
+              <select id="source">
+                <option selected>Website</option>
+                <option>Tu van vien</option>
+                <option>Gioi thieu ban be</option>
+                <option>Su kien</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="address">Dia chi lien he</label>
+              <input id="address" type="text" value="123 Le Loi, Quan 1, TP HCM">
+            </div>
+            <div class="field full">
+              <label for="note">Ghi chu hoc tap</label>
+              <textarea id="note" placeholder="Nhap muc tieu hoc tap">Muon hoc de chuyen huong sang Salesforce Admin va co the tu build portal co ban.</textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" type="button" onclick="goToStep(1)">Buoc truoc</button>
+            <div class="actions-right">
+              <button class="btn btn-primary" type="button" onclick="goToStep(3)">Tiep tuc</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-panel" data-step="3">
+          <h2>Buoc 3: Confirm dang ky</h2>
+          <p class="subtitle">
+            Hoc vien review lai du lieu truoc khi gui yeu cau dang ky. Buoc nay co the map thanh trang review cua `Enrollment__c`.
+          </p>
+
+          <div class="confirm-grid">
+            <div class="confirm-box">
+              <h3>Thong tin khoa hoc da chon</h3>
+              <div class="confirm-list">
+                <div class="confirm-item"><span>Khoa hoc</span><strong>Salesforce Administrator Foundation</strong></div>
+                <div class="confirm-item"><span>Ma lop</span><strong>ADM-2026-04</strong></div>
+                <div class="confirm-item"><span>Lich hoc</span><strong>T7-CN, 19:00</strong></div>
+                <div class="confirm-item"><span>Ngay khai giang</span><strong>10/04/2026</strong></div>
+                <div class="confirm-item"><span>Hoc phi</span><strong>12.000.000 VND</strong></div>
+              </div>
+            </div>
+
+            <div class="confirm-box">
+              <h3>Thong tin hoc vien</h3>
+              <div class="confirm-list">
+                <div class="confirm-item"><span>Ho va ten</span><strong>Nguyen Minh Tam</strong></div>
+                <div class="confirm-item"><span>Email</span><strong>tam.nguyen@email.com</strong></div>
+                <div class="confirm-item"><span>So dien thoai</span><strong>0901234567</strong></div>
+                <div class="confirm-item"><span>Nguon dang ky</span><strong>Website</strong></div>
+                <div class="confirm-item"><span>Ghi chu</span><strong>Hoc de chuyen huong sang Salesforce Admin</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" type="button" onclick="goToStep(2)">Sua thong tin</button>
+            <div class="actions-right">
+              <button class="btn btn-primary" type="button" onclick="goToStep(4)">Xac nhan va thanh toan</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-panel" data-step="4">
+          <h2>Buoc 4: Thanh toan</h2>
+          <p class="subtitle">
+            Sau khi confirm, he thong sinh `Invoice__c`. Hoc vien chon cach thanh toan va tien hanh thanh toan tren portal.
+          </p>
+
+          <div class="payment-options">
+            <label class="payment-card">
+              <input type="radio" name="payment" checked>
+              <div>
+                <strong>Thanh toan chuyen khoan</strong>
+                <div class="helper">Tao invoice, hien thong tin ngan hang va doi ke toan xac nhan giao dich.</div>
+              </div>
+            </label>
+
+            <label class="payment-card">
+              <input type="radio" name="payment">
+              <div>
+                <strong>Thanh toan qua cong thanh toan</strong>
+                <div class="helper">Redirect sang payment gateway va luu ket qua callback vao transaction object.</div>
+              </div>
+            </label>
+
+            <label class="payment-card">
+              <input type="radio" name="payment">
+              <div>
+                <strong>Dat coc truoc</strong>
+                <div class="helper">Thu tien giu cho va theo doi so tien con lai trong invoice.</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="bank-box">
+            <strong>Thong tin thanh toan minh hoa</strong><br>
+            Ngan hang: ACB<br>
+            So tai khoan: 123456789<br>
+            Chu tai khoan: Trung Tam Dao Tao ABC<br>
+            Noi dung: ADM-2026-04 - TAMNGUYEN
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" type="button" onclick="goToStep(3)">Quay lai review</button>
+            <div class="actions-right">
+              <button class="btn btn-secondary" type="button">Luu hoa don</button>
+              <button class="btn btn-primary" type="button">Thanh toan ngay</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="card sidebar">
+        <h2>Tom tat dang ky</h2>
+        <p class="helper">Panel nay luon hien de hoc vien theo doi thong tin va tong tien trong suot hanh trinh.</p>
+
+        <div class="summary-box">
+          Hoc phi khoa hoc
+          <strong>12.000.000 VND</strong>
+        </div>
+
+        <div class="summary-list">
+          <div class="summary-item"><span>Khoa hoc</span><strong>Administrator Foundation</strong></div>
+          <div class="summary-item"><span>Ma lop</span><strong>ADM-2026-04</strong></div>
+          <div class="summary-item"><span>Phi giu cho</span><strong>2.000.000 VND</strong></div>
+          <div class="summary-item"><span>Uu dai</span><strong>-500.000 VND</strong></div>
+          <div class="summary-item"><span>Can thanh toan hom nay</span><strong>1.500.000 VND</strong></div>
+          <div class="summary-item"><span>Con lai</span><strong>10.000.000 VND</strong></div>
+        </div>
+
+        <div class="notice">
+          Luong single-page nay rat phu hop de map sang `Experience Builder + LWC` hoac `Screen Flow` trong Salesforce.
+        </div>
+
+        <div class="security">
+          Du lieu thanh toan la minh hoa. Khi build thuc te, thong tin nhay cam can duoc xu ly qua permission, sharing va payment gateway an toan.
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    function goToStep(step) {
+      var panels = document.querySelectorAll("[data-step]");
+      var chips = document.querySelectorAll("[data-step-chip]");
+
+      panels.forEach(function(panel) {
+        panel.classList.toggle("active", Number(panel.getAttribute("data-step")) === step);
+      });
+
+      chips.forEach(function(chip) {
+        chip.classList.toggle("active", Number(chip.getAttribute("data-step-chip")) === step);
+      });
+    }
+  </script>
+</body>
+</html>
